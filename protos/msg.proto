@@ -1,0 +1,13 @@
+syntax="proto3";
+package main;
+
+
+option go_package="./;protos";
+
+message Msg {
+    bytes data = 1;
+    int64 time = 2;
+    int32 msg_id=3;
+    string src_ip=4;
+    string dst_ip=5;
+}
