@@ -27,7 +27,7 @@ func NewServer(ip net.IP, port int) *Server {
 
 func (s *Server) Listen() {
 	// 阻塞监听
-	listener, err := net.Listen("tcp", fmt.Sprintf("127.0.0.1:%d", s.port))
+	listener, err := net.Listen("tcp", fmt.Sprintf("%s:%d", s.ip, s.port))
 	if err != nil {
 		log.Fatal("Error listening: ", err.Error())
 
@@ -67,12 +67,6 @@ func (s *Server) handleRequest(conn net.Conn) {
 		if err != nil {
 			fmt.Println("Error unmarshalling request: ", err.Error())
 			return
-		}
-
-		if strings.ToLower(string(msg.Data)) == "q" {
-			fmt.Printf("%v: Client (%s) closed connection \n", time.Unix(msg.Time, 0).Format("2006-01-02 15:04:05"), msg.SrcAddr)
-			conn.Close()
-			break
 		}
 		// print msg
 		fmt.Printf("%v (%s): %s \n", time.Unix(msg.Time, 0).Format("2006-01-02 15:04:05"), msg.SrcAddr, msg.Data)

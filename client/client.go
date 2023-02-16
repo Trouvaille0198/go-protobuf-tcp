@@ -58,7 +58,7 @@ func (c *Client) Connect() error {
 
 // TCP 客户端
 func (c *Client) Start() {
-	defer c.conn.Close() // 关闭TCP连接
+	defer c.conn.Close() 
 	inputReader := bufio.NewReader(os.Stdin)
 	for {
 		// 读取用户输入

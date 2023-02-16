@@ -47,7 +47,8 @@ func init() {
 func run(cmd *cobra.Command, args []string) {
 	if serverArg {
 		// start server
-		server.NewServer(net.ParseIP("127.0.0.1"), SrcPortArg).Listen()
+		s := server.NewServer(net.ParseIP("127.0.0.1"), SrcPortArg)
+		s.Listen()
 	} else {
 		// start client
 		addr := strings.Split(DstAddrArg, ":")[:2]
@@ -55,6 +56,7 @@ func run(cmd *cobra.Command, args []string) {
 			log.Fatal("invalid dst address")
 		}
 		dstPort, _ := strconv.Atoi(addr[1])
+
 		c := client.NewClient(net.ParseIP(addr[0]), dstPort, SrcPortArg)
 		err := c.Connect()
 		if err != nil {
