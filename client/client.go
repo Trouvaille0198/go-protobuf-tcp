@@ -58,7 +58,7 @@ func (c *Client) Connect() error {
 
 // TCP 客户端
 func (c *Client) Start() {
-	defer c.conn.Close() 
+	defer c.conn.Close()
 	inputReader := bufio.NewReader(os.Stdin)
 	for {
 		// 读取用户输入
@@ -73,6 +73,7 @@ func (c *Client) Start() {
 			Time:    time.Now().Unix(),
 			SrcAddr: c.getLocalAddr(),
 			DstAddr: fmt.Sprintf("%s:%d", c.DstIp, c.DstPort),
+			Type:    protos.TYPE_FROM_CLIENT,
 		}
 		buf, err := proto.Marshal(sendMsg)
 		if err != nil {

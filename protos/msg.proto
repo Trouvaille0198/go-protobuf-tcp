@@ -5,10 +5,16 @@ package main;
 
 option go_package="./;protos";
 
+enum TYPE {
+    FROM_CLIENT = 0;
+    FROM_SERVER = 1;
+  }
+
 message Msg {
     bytes data = 1;
     int64 time = 2;
     // int32 msg_id=3;
     string src_addr=4;
     string dst_addr=5;
+    TYPE type=6;
 }

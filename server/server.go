@@ -6,7 +6,6 @@ import (
 	"io"
 	"log"
 	"net"
-	"strings"
 	"time"
 
 	"google.golang.org/protobuf/proto"
@@ -83,6 +82,7 @@ func (s *Server) handleRequest(conn net.Conn) {
 			Time:    time.Now().Unix(),
 			SrcAddr: fmt.Sprintf("%s:%d", s.ip, s.port),
 			DstAddr: msg.SrcAddr,
+			Type:    protos.TYPE_FROM_SERVER,
 		}
 		// 序列化响应数据
 		resBuf, err := proto.Marshal(resMsg)
