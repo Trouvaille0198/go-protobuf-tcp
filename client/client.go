@@ -63,10 +63,10 @@ func (c *Client) Start() {
 	for {
 		// 读取用户输入
 		input, err := inputReader.ReadString('\n')
-		input = strings.TrimSpace(input)
 		if err != nil {
-			return
+			log.Fatal("Error reading input: ", err)
 		}
+		input = strings.TrimSpace(input)
 		// 序列化
 		sendMsg := &protos.Msg{
 			Data:    []byte(input),
@@ -77,8 +77,7 @@ func (c *Client) Start() {
 		}
 		buf, err := proto.Marshal(sendMsg)
 		if err != nil {
-			log.Println("Error marshalling: ", err)
-			return
+			log.Fatal("Error marshalling: ", err)
 		}
 		// send msg
 		_, err = c.conn.Write(buf)
